@@ -107,7 +107,7 @@ export default function App() {
   }, []);
 
   return (
-    <div ref={appRef} className="min-h-screen flex flex-col overflow-x-hidden bg-bg-cream text-charcoal noise-bg">
+    <div ref={appRef} className="min-h-screen relative overflow-x-hidden bg-bg-cream text-charcoal noise-bg">
       {/* SVG Noise Filter */}
       <svg className="hidden">
         <filter id="noiseFilter">
@@ -156,7 +156,7 @@ export default function App() {
       {/* Hero Section */}
       <section className="relative h-dvh w-full overflow-hidden">
         <img 
-          src="https://images.unsplash.com/photo-1516244670068-07e376bf5991?auto=format&fit=crop&q=80&w=2000" 
+          src="/images/hero_vineyard_1771712360567.png" 
           alt="Dark organic vineyard textures" 
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -251,7 +251,7 @@ export default function App() {
       {/* Philosophy - The Manifesto */}
       <section id="philosophie" className="relative py-40 bg-charcoal text-bg-cream overflow-hidden px-8">
         <div className="absolute inset-0 opacity-10">
-          <img src="https://images.unsplash.com/photo-1423483641154-71607a1e944b?auto=format&fit=crop&q=80&w=2000" alt="Moss texture" className="w-full h-full object-cover" />
+          <img src="/images/moss_texture_1771712384013.png" alt="Moss texture" className="w-full h-full object-cover" />
         </div>
         <div className="max-w-5xl mx-auto relative z-10 flex flex-col gap-12 text-center md:text-left">
           <p className="phil-text text-xl md:text-3xl font-heading font-light text-bg-cream/50 tracking-tight">
@@ -270,19 +270,19 @@ export default function App() {
             step: "01",
             title: "Bioland Zertifizierung",
             desc: "Ein voller Übergang zum ökologischen Weinbau. Komplett im Einklang mit Flora und Fauna des Rheingaus.",
-            img: "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80&w=1000"
+            img: "/images/protocol_bioland_1771712399480.png"
           },
           {
             step: "02",
             title: "Cabernet Blanc & PiWis",
             desc: "Pionierarbeit mit pilzwiderstandsfähigen Rebsorten, um den Pflanzenschutz auf ein absolutes Minimum zu reduzieren.",
-            img: "https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?auto=format&fit=crop&q=80&w=1000"
+            img: "/images/protocol_innovation_1771712427057.png"
           },
           {
             step: "03",
             title: "Riesling Tradition",
             desc: "Die Seele unserer Böden übersetzt ins Glas. Kristallklar, tiefgründig und geprägt von den Steillagen Martinsthals.",
-            img: "https://images.unsplash.com/photo-1506757132832-7fdcfc3cc6c1?auto=format&fit=crop&q=80&w=1000"
+            img: "/images/protocol_steillage_1771712442166.png"
           }
         ].map((item, index) => (
           <div key={index} className="protocol-card sticky top-0 h-screen w-full flex items-center justify-center p-6 origin-top bg-bg-cream border-t border-charcoal/5">
