@@ -407,29 +407,32 @@ export default function App() {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {/* Diagnostic Shuffler */}
-          <div className="bg-bg-cream shadow-2xl rounded-[3rem] p-10 h-96 relative overflow-hidden border border-charcoal/5 flex flex-col justify-end">
-            <div className="absolute top-10 left-10">
-              <h3 className="font-heading font-bold text-lg mb-2 text-primary-moss">
+          <div className="bg-bg-cream shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[2.5rem] p-12 h-[28rem] relative overflow-hidden flex flex-col justify-end border border-charcoal/5 group transition-shadow duration-500 hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)]">
+            {/* Subtle Texture */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/40 via-transparent to-transparent opacity-60"></div>
+            
+            <div className="absolute top-12 left-12 z-10">
+              <h3 className="font-heading font-bold text-2xl mb-3 text-primary-moss">
                 {t.features.f1_title}
               </h3>
-              <p className="text-xs text-charcoal/60 font-data uppercase">
+              <p className="text-[10px] text-charcoal/50 font-data uppercase tracking-[0.2em]">
                 {t.features.f1_sub}
               </p>
             </div>
 
-            <div className="relative h-40 w-full mt-12 perspective-1000">
+            <div className="relative h-48 w-full mt-auto perspective-1000 z-10">
               {shufflerCards.map((text, i) => (
                 <div
                   key={text}
-                  className="absolute inset-x-0 bottom-0 bg-white p-6 rounded-2xl shadow-lg border border-charcoal/5 transition-all duration-700 ease-in-out"
+                  className="absolute inset-x-0 bottom-0 bg-white/90 backdrop-blur-sm p-6 rounded-[1.5rem] shadow-sm border border-charcoal/5 transition-all duration-700 ease-out"
                   style={{
-                    transform: `translateY(-${i * 15}px) scale(${1 - i * 0.05})`,
+                    transform: `translateY(-${i * 18}px) scale(${1 - i * 0.04})`,
                     zIndex: 10 - i,
-                    opacity: 1 - i * 0.2,
+                    opacity: 1 - i * 0.15,
                   }}
                 >
-                  <p className="font-data text-sm flex items-center justify-between">
-                    {text} <ArrowRight size={14} className="text-accent-clay" />
+                  <p className="font-data text-sm flex items-center justify-between text-charcoal/80">
+                    {text} <ArrowRight size={14} className="text-accent-clay opacity-0 translate-x-[-10px] transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0" />
                   </p>
                 </div>
               ))}
@@ -437,62 +440,77 @@ export default function App() {
           </div>
 
           {/* Telemetry Typewriter -> Organic Journal */}
-          <div className="bg-primary-moss text-bg-cream shadow-2xl rounded-[3rem] p-10 h-96 border border-white/10 flex flex-col relative overflow-hidden">
-            <div className="absolute -right-10 -bottom-10 opacity-[0.03]">
-               <Grape size={250} />
+          <div className="bg-primary-moss text-bg-cream shadow-[0_8px_30px_rgb(46,64,54,0.2)] rounded-[2.5rem] p-12 h-[28rem] border border-white/5 flex flex-col relative overflow-hidden group">
+            {/* Organic Texture Overlay */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent"></div>
+            <div className="absolute -right-16 -bottom-16 opacity-[0.04] text-white">
+               <Grape size={350} strokeWidth={1} />
             </div>
-            <div className="flex justify-between items-center mb-8 relative z-10">
-              <h3 className="font-heading font-bold text-lg">{t.features.f2_title}</h3>
-              <div className="flex items-center gap-2 opacity-50">
-                <span className="w-2 h-2 rounded-full bg-accent-clay animate-pulse"></span>
-                <span className="text-[10px] uppercase font-data">
+            
+            <div className="flex justify-between items-start mb-12 relative z-10">
+              <h3 className="font-heading font-bold text-2xl text-white">{t.features.f2_title}</h3>
+              <div className="flex items-center gap-2 opacity-50 bg-black/20 px-3 py-1.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-clay animate-pulse"></span>
+                <span className="text-[9px] uppercase font-data tracking-widest text-white">
                   {t.features.f2_title} - Log
                 </span>
               </div>
             </div>
-            <div className="font-data text-sm leading-relaxed mt-auto h-32 text-bg-cream/90 relative z-10">
-              <p>
+            
+            <div className="font-data text-base md:text-lg leading-relaxed mt-auto h-40 text-bg-cream/90 relative z-10 flex items-end">
+              <p className="max-w-[90%]">
                 {telemetryText}
-                <span className="inline-block w-2 h-4 bg-bg-cream/50 ml-1 align-middle animate-pulse"></span>
+                <span className="inline-block w-2.5 h-5 bg-bg-cream/50 ml-1.5 align-middle animate-pulse"></span>
               </p>
             </div>
           </div>
 
           {/* Cursor Protocol Scheduler & Tree Counter */}
-          <div className="bg-bg-cream shadow-2xl rounded-[3rem] p-10 h-96 border border-charcoal/5 flex flex-col justify-between overflow-hidden relative group">
-            <div className="relative z-10">
-              <h3 className="font-heading font-bold text-lg text-primary-moss mb-2">
+          <div className="bg-bg-cream shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-[2.5rem] p-12 h-[28rem] border border-charcoal/5 flex flex-col justify-between overflow-hidden relative group hover:shadow-[0_8px_40px_rgb(0,0,0,0.08)] transition-shadow duration-500">
+            {/* Subtle Texture */}
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-white/50 via-transparent to-transparent opacity-60"></div>
+            
+            <div className="relative z-10 text-center">
+              <h3 className="font-heading font-bold text-2xl text-primary-moss mb-3">
                 {t.features.f3_title}
               </h3>
-              <p className="text-xs text-charcoal/60 font-data uppercase">
+              <p className="text-[10px] text-charcoal/50 font-data uppercase tracking-[0.2em] mb-8">
                 {t.features.f3_sub}
               </p>
             </div>
 
             {/* Tree Target Counter */}
-            <div className="relative z-10 flex flex-col items-center justify-center -mt-6">
-              <span className="font-data text-[10px] uppercase tracking-widest text-charcoal/40 mb-2">
-                {t.features.f3_counter}
-              </span>
-              <div className="flex items-baseline gap-1 mb-4">
-                <motion.span
-                  className="font-heading text-6xl md:text-7xl text-accent-clay tracking-tighter"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                >
-                  <CountUpTarget target={130} />
-                </motion.span>
-                <span className="font-heading text-4xl text-accent-clay">
-                  +
-                </span>
+            <div className="relative z-10 flex flex-col items-center justify-center flex-grow">
+              <div className="flex justify-center items-center w-full mb-6 relative">
+                 <div className="absolute inset-0 flex items-center justify-center opacity-5">
+                   <svg width="150" height="150" viewBox="0 0 100 100" className="animate-[spin_40s_linear_infinite]">
+                     <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 4"/>
+                   </svg>
+                 </div>
+                <div className="flex items-baseline gap-1">
+                  <motion.span
+                    className="font-heading text-[5rem] md:text-[6rem] text-accent-clay tracking-tighter leading-none"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 50, damping: 20 }}
+                    viewport={{ once: true }}
+                  >
+                    <CountUpTarget target={130} />
+                  </motion.span>
+                  <span className="font-heading text-4xl text-accent-clay opacity-80">
+                    +
+                  </span>
+                </div>
               </div>
-              <p className="text-charcoal/60 text-xs text-center font-light leading-relaxed px-2">
-                Pionierarbeit im Vitiforst (Agroforst): Bäume direkt im Weinberg gegen den Klimawandel.
-              </p>
+              
+              <div className="bg-white/50 backdrop-blur-md rounded-2xl p-4 border border-white w-full">
+                <p className="text-charcoal/70 text-xs text-center font-light leading-relaxed">
+                  Pionierarbeit im Vitiforst: Bäume <br/>direkt im Weinberg gegen den Klimawandel.
+                </p>
+              </div>
             </div>
 
-            <button className="w-full mt-auto bg-black/5 rounded-full py-4 text-xs font-data font-bold uppercase tracking-widest group-hover:bg-primary-moss group-hover:text-white transition-colors duration-500 relative overflow-hidden z-10">
+            <button className="w-full mt-6 bg-white border border-charcoal/10 rounded-full py-4 text-[10px] font-data font-bold uppercase tracking-[0.2em] text-charcoal/80 group-hover:bg-primary-moss group-hover:text-white group-hover:border-primary-moss transition-all duration-300 relative overflow-hidden z-10">
               <span className="relative z-10">{t.features.f3_cta}</span>
             </button>
           </div>
