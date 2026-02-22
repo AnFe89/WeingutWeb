@@ -562,93 +562,89 @@ export default function App() {
                     <motion.div
                       animate={{ rotate: 360 }}
                       transition={{
-                        duration: 30,
+                        duration: 60,
                         repeat: Infinity,
                         ease: "linear",
                       }}
                     >
                       <svg
-                        width="200"
-                        height="200"
+                        width="240"
+                        height="240"
                         viewBox="0 0 100 100"
                         className="text-accent-clay"
                       >
-                        <circle
+                        <motion.circle
                           cx="50"
                           cy="50"
-                          r="45"
+                          r="40"
                           stroke="currentColor"
-                          strokeWidth="0.2"
+                          strokeWidth="0.5"
                           fill="none"
-                          strokeDasharray="2 4"
+                          strokeDasharray="4 8"
+                          animate={{ scale: [1, 1.05, 1] }}
+                          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                         />
-                        <circle
-                          cx="50"
-                          cy="50"
-                          r="35"
-                          stroke="currentColor"
-                          strokeWidth="0.2"
-                          fill="none"
-                        />
-                        <path
-                          d="M50 5 L50 95 M5 50 L95 50"
-                          stroke="currentColor"
-                          strokeWidth="0.1"
-                        />
-                        <motion.rect
-                          width="10"
-                          height="10"
-                          x="45"
-                          y="45"
-                          fill="currentColor"
-                          opacity="0.5"
-                          animate={{ rotate: 90 }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        />
+                        {/* Sun/Organic Rays */}
+                        {[...Array(12)].map((_, i) => (
+                           <path
+                             key={i}
+                             d={`M 50 ${10} L 50 ${15}`}
+                             stroke="currentColor"
+                             strokeWidth="1"
+                             strokeLinecap="round"
+                             transform={`rotate(${i * 30} 50 50)`}
+                           />
+                        ))}
                       </svg>
                     </motion.div>
                   )}
                   {index === 1 && (
-                    <div className="w-[240px] h-[240px] relative overflow-hidden border border-accent-clay/20 rounded-[3rem]">
-                      <motion.div
-                        className="absolute w-full h-px bg-accent-clay shadow-[0_0_20px_rgba(204,88,51,0.8)] z-10"
-                        animate={{ top: ["0%", "100%", "0%"] }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "easeInOut",
-                        }}
-                      />
-                      <div className="absolute inset-0 grid grid-cols-12 grid-rows-12 opacity-10">
-                        {[...Array(144)].map((_, i) => (
-                          <div
-                            key={i}
-                            className="border-[0.5px] border-accent-clay/20"
-                          />
-                        ))}
-                      </div>
+                    <div className="w-[240px] h-[240px] flex items-center justify-center">
+                       <svg width="200" height="200" viewBox="0 0 100 100" className="text-accent-clay">
+                         {/* Grape/PiWi structure */}
+                         <motion.path
+                           d="M20,20 Q40,10 60,30 T80,60"
+                           fill="none"
+                           stroke="currentColor"
+                           strokeWidth="1"
+                           initial={{ pathLength: 0 }}
+                           animate={{ pathLength: 1 }}
+                           transition={{ duration: 3, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                         />
+                         <motion.circle cx="30" cy="30" r="8" fill="currentColor" opacity="0.6" animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity }}/>
+                         <motion.circle cx="50" cy="40" r="10" fill="currentColor" opacity="0.8" animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2.5, repeat: Infinity, delay: 0.2 }}/>
+                         <motion.circle cx="45" cy="60" r="9" fill="currentColor" opacity="0.7" animate={{ scale: [1, 1.3, 1] }} transition={{ duration: 2.2, repeat: Infinity, delay: 0.4 }}/>
+                         <motion.circle cx="70" cy="50" r="7" fill="currentColor" opacity="0.5" animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.8, repeat: Infinity, delay: 0.1 }}/>
+                       </svg>
                     </div>
                   )}
                   {index === 2 && (
-                    <div className="w-[200px] h-[100px] flex items-center justify-center">
+                    <div className="w-[240px] h-[140px] flex items-center justify-center">
                       <svg
-                        width="200"
+                        width="240"
                         height="100"
-                        viewBox="0 0 200 100"
+                        viewBox="0 0 240 100"
                         className="text-accent-clay opacity-60"
                       >
+                        {/* Topographical Steillage Wave */}
                         <motion.path
-                          d="M0 50 L20 50 L30 10 L50 90 L60 50 L100 50 L110 30 L120 70 L130 50 L200 50"
+                          d="M0 60 Q 40 40, 80 80 T 160 30 T 240 70"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="1"
-                          initial={{ pathLength: 0, opacity: 0 }}
-                          animate={{ pathLength: 1, opacity: 1 }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            ease: "easeInOut",
-                          }}
+                          strokeWidth="1.5"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                        <motion.path
+                          d="M0 80 Q 50 60, 90 90 T 170 50 T 240 90"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="0.5"
+                          opacity="0.5"
+                          initial={{ pathLength: 0 }}
+                          animate={{ pathLength: 1 }}
+                          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
                         />
                       </svg>
                     </div>
@@ -695,14 +691,14 @@ export default function App() {
             {/* Card 1 */}
             <div className="rounded-[3rem] border border-charcoal/10 p-10 flex flex-col bg-white">
               <p className="font-data text-xs text-charcoal/50 uppercase tracking-widest mb-8">
-                Klassiker
+                Kennenlernen
               </p>
-              <h3 className="font-heading text-3xl mb-4">Riesling Gutswein</h3>
+              <h3 className="font-heading text-3xl mb-4">6er Probierpaket</h3>
               <p className="text-charcoal/70 mb-12">
-                Typischer Rheingau Charakter. Mineralisch, frisch, trocken.
+                "Neue Entdeckungen". 6 ausgesuchte Weine inkl. Trauben-Secco. 
               </p>
               <div className="mt-auto">
-                <p className="font-data text-2xl mb-6">12,50€</p>
+                <p className="font-data text-2xl mb-6">49,00€</p>
                 <button className="magnetic-btn w-full py-4 rounded-full border border-primary-moss text-primary-moss font-data uppercase text-xs tracking-widest hover:bg-primary-moss hover:text-white transition-colors">
                   IN DEN WARENKORB
                 </button>
@@ -795,16 +791,16 @@ export default function App() {
               <ul className="space-y-4 font-light text-bg-cream/70">
                 <li>Hauptstraße 55</li>
                 <li>65344 Eltville - Martinsthal</li>
-                <li>info@engelmann-schlepper.de</li>
+                <li>06123 - 71412</li>
               </ul>
             </div>
           </div>
 
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+              <span className="w-2 h-2 rounded-full bg-primary-moss animate-pulse"></span>
               <span className="font-data text-[10px] uppercase tracking-widest text-bg-cream/50">
-                System Operational - Shop Online
+                ÖKO-KONTROLLSTELLE: DE-ÖKO-006 / BIOLAND
               </span>
             </div>
             <div className="flex gap-6 font-data text-[10px] uppercase tracking-widest text-bg-cream/50">
