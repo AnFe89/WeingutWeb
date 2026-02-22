@@ -1,28 +1,143 @@
 import { motion } from "motion/react";
-import { ShoppingBag, Calendar, Menu, X, ArrowRight, Play, Grape } from "lucide-react";
+import {
+  ShoppingBag,
+  Calendar,
+  Menu,
+  X,
+  ArrowRight,
+  Play,
+  Grape,
+} from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+
+const translations = {
+  DE: {
+    nav: {
+      collection: "Kollektion",
+      experience: "Erlebnis",
+      manifesto: "Manifest",
+      shop: "Shop"
+    },
+    hero: {
+      subtitle: "Bioland Weingut & Gästehaus",
+      titleTop: "Rheingauer Gastlichkeit in",
+      titleBottom: "Reinform.",
+      cta: "Tasting buchen"
+    },
+    trust: {
+      bio: "BIOLAND ZERTIFIZIERT",
+      award: "NABU FÖRDERPREIS",
+      hotel: "4-STERNE DTV GÄSTEHAUS"
+    },
+    features: {
+      f1_title: "Gastlichkeit",
+      f1_sub: "Erlebnis",
+      f1_cards: ["4-Sterne Gästehaus", "Inmitten der Reben", "Auszeit im Rheingau"],
+      f2_title: "Ökologie",
+      f3_title: "Innovation",
+      f3_sub: "Wein-Wälder Projekt",
+      f3_counter: "Gepflanzte klima-resiliente Bäume",
+      f3_cta: "Patenschaft starten"
+    },
+    philosophy: {
+      pre: "Unsere Philosophie",
+      top: "Nachhaltiges Handeln ist uns ein Herzensanliegen.",
+      bottom1: "Wir haben die Erde nicht von unseren Eltern geerbt, ",
+      bottom2: "sondern von unseren Kindern geliehen."
+    }
+  },
+  EN: {
+    nav: {
+      collection: "Collection",
+      experience: "Experience",
+      manifesto: "Manifesto",
+      shop: "Store"
+    },
+    hero: {
+      subtitle: "Bioland Estate & Guesthouse",
+      titleTop: "Rheingau Hospitality is the",
+      titleBottom: "Pure Nature.",
+      cta: "Book Tasting"
+    },
+    trust: {
+      bio: "BIOLAND CERTIFIED",
+      award: "NABU INNOVATION AWARD",
+      hotel: "4-STAR GUESTHOUSE"
+    },
+    features: {
+      f1_title: "Hospitality",
+      f1_sub: "Experience",
+      f1_cards: ["4-Star Guesthouse", "Amidst the Vines", "Rheingau Getaway"],
+      f2_title: "Ecology",
+      f3_title: "Innovation",
+      f3_sub: "Wine-Forest Project",
+      f3_counter: "Planted climate-resilient trees",
+      f3_cta: "Start Sponsorship"
+    },
+    philosophy: {
+      pre: "Our Philosophy",
+      top: "Sustainable action is a matter close to our hearts.",
+      bottom1: "We do not inherit the earth from our ancestors, ",
+      bottom2: "we borrow it from our children."
+    }
+  }
+};
+
+// Simple unmounted accessible counter component to simulate a live counter
+function CountUpTarget({ target }: { target: number }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTime: number;
+    const duration = 2500; // 2.5s counting
+
+    const animate = (time: number) => {
+      if (!startTime) startTime = time;
+      const progress = Math.min((time - startTime) / duration, 1);
+
+      // Easing function (easeOutQuart)
+      const easeProgress = 1 - Math.pow(1 - progress, 4);
+
+      setCount(Math.floor(easeProgress * target));
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    const reqId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(reqId);
+  }, [target]);
+
+  return <>{count}</>;
+}
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+  const [lang, setLang] = useState<"DE" | "EN">("DE");
+  const t = translations[lang];
+
   // Ref for all animations
   const appRef = useRef(null);
-  
+  const protocolRef = useRef(null);
+
   // Telemetry Typewriter State
   const [telemetryText, setTelemetryText] = useState("");
-  const fullText = "Zertifizierter Bioland-Weinbau im Einklang mit der Natur. Ökologische Innovation.";
-  
+  const fullText =
+    "100% Umstellung auf ökologischen Weinbau. Die erste Voll-Bio Ernte steht an.";
+
   // Diagnostic Shuffler State
-  const [shufflerCards, setShufflerCards] = useState([
-    "4-Sterne Gästehaus",
-    "Inmitten der Reben",
-    "Auszeit im Rheingau"
-  ]);
+  const [shufflerCards, setShufflerCards] = useState(t.features.f1_cards);
+
+  // Update shuffler cards when language changes
+  useEffect(() => {
+    setShufflerCards(t.features.f1_cards);
+  }, [lang, t.features.f1_cards]);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -37,26 +152,41 @@ export default function App() {
       gsap.to(".hero-elem", {
         y: 0,
         opacity: 1,
-        stagger: 0.08,
-        duration: 1.2,
-        ease: "power3.out",
-        delay: 0.2
+        stagger: 0.1,
+        duration: 1.4,
+        ease: "power4.out",
+        delay: 0.2,
       });
 
-      // Philosophy Reveal
-      gsap.from(".phil-text", {
-        scrollTrigger: {
-          trigger: "#philosophie",
-          start: "top 70%",
-        },
-        y: 40,
-        opacity: 0,
-        stagger: 0.15,
-        duration: 1,
-        ease: "power3.out"
+      // Philosophy Parallax & Reveal
+      const philBg = document.querySelector("#philosophy-bg");
+      if (philBg) {
+        gsap.to(philBg, {
+          yPercent: 30,
+          ease: "none",
+          scrollTrigger: {
+            trigger: "#philosophie",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      }
+
+      gsap.utils.toArray(".philosophy-reveal").forEach((elem: any) => {
+        gsap.from(elem, {
+          opacity: 0,
+          y: 40,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: elem,
+            start: "top 85%",
+          },
+        });
       });
 
-      // Protocol Sticky Stacking
+      // Protocol Sticky Stacking Interaction
       const cards = gsap.utils.toArray(".protocol-card");
       cards.forEach((card: any, i) => {
         if (i < cards.length - 1) {
@@ -68,12 +198,12 @@ export default function App() {
               scrub: true,
             },
             scale: 0.9,
-            opacity: 0.5,
+            opacity: 0.4,
             filter: "blur(20px)",
+            ease: "power2.inOut",
           });
         }
       });
-
     }, appRef);
 
     return () => ctx.revert();
@@ -84,7 +214,7 @@ export default function App() {
     let i = 0;
     const typingInterval = setInterval(() => {
       if (i < fullText.length) {
-        setTelemetryText(prev => prev + fullText.charAt(i));
+        setTelemetryText((prev) => prev + fullText.charAt(i));
         i++;
       } else {
         clearInterval(typingInterval);
@@ -96,10 +226,10 @@ export default function App() {
   // Shuffler Effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setShufflerCards(prev => {
+      setShufflerCards((prev) => {
         const newArr = [...prev];
         const last = newArr.pop();
-        if(last) newArr.unshift(last);
+        if (last) newArr.unshift(last);
         return newArr;
       });
     }, 3000);
@@ -107,31 +237,82 @@ export default function App() {
   }, []);
 
   return (
-    <div ref={appRef} className="min-h-screen relative overflow-x-hidden bg-bg-cream text-charcoal noise-bg">
+    <div
+      ref={appRef}
+      className="min-h-screen relative overflow-x-hidden bg-bg-cream text-charcoal noise-bg"
+    >
       {/* SVG Noise Filter */}
       <svg className="hidden">
         <filter id="noiseFilter">
-          <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/>
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency="0.8"
+            numOctaves="3"
+            stitchTiles="stitch"
+          />
         </filter>
       </svg>
-      <div className="fixed inset-0 pointer-events-none opacity-[0.05] z-50 mix-blend-overlay" style={{ filter: "url(#noiseFilter)" }}></div>
+      <div
+        className="fixed inset-0 pointer-events-none opacity-[0.05] z-50 mix-blend-overlay"
+        style={{ filter: "url(#noiseFilter)" }}
+      ></div>
 
       {/* Navigation - The Floating Island */}
-      <nav className={`fixed left-1/2 -translate-x-1/2 top-6 z-50 transition-all duration-500 rounded-full px-8 py-4 ${isScrolled ? "bg-bg-cream/70 backdrop-blur-xl border border-charcoal/10 shadow-lg w-[95%] max-w-5xl" : "w-[95%] max-w-5xl bg-transparent"}`}>
+      <nav
+        className={`fixed left-1/2 -translate-x-1/2 top-6 z-50 transition-all duration-500 rounded-full px-8 py-4 ${isScrolled ? "bg-bg-cream/70 backdrop-blur-xl border border-charcoal/10 shadow-lg w-[95%] max-w-5xl" : "w-[95%] max-w-5xl bg-transparent"}`}
+      >
         <div className="flex justify-between items-center w-full">
           <div className="hidden gap-8 items-center md:flex">
-            <a href="#kollektion" className={`text-xs font-data uppercase tracking-widest hover:text-accent-clay transition-colors ${isScrolled ? "text-charcoal" : "text-white"}`}>Kollektion</a>
-            <a href="#features" className={`text-xs font-data uppercase tracking-widest hover:text-accent-clay transition-colors ${isScrolled ? "text-charcoal" : "text-white"}`}>Erlebnis</a>
+            <a
+              href="#kollektion"
+              className={`text-xs font-data uppercase tracking-widest hover:text-accent-clay transition-colors ${isScrolled ? "text-charcoal" : "text-white"}`}
+            >
+              {t.nav.collection}
+            </a>
+            <a
+              href="#features"
+              className={`text-xs font-data uppercase tracking-widest hover:text-accent-clay transition-colors ${isScrolled ? "text-charcoal" : "text-white"}`}
+            >
+              {t.nav.experience}
+            </a>
+            <div
+             className={`w-px h-4 mx-2 ${isScrolled ? "bg-charcoal/20" : "bg-white/20"}`}></div>
+            <div className={`flex items-center gap-2 text-xs font-data uppercase tracking-widest ${isScrolled ? "text-charcoal" : "text-white"}`}>
+              <button 
+                 onClick={() => setLang("DE")}
+                 className={`${lang === "DE" ? "text-accent-clay font-bold" : "opacity-50 hover:opacity-100 hover:text-accent-clay transition-colors"}`}
+              >
+                  DE
+              </button>
+              <span className="opacity-30">/</span>
+              <button 
+                 onClick={() => setLang("EN")}
+                 className={`${lang === "EN" ? "text-accent-clay font-bold" : "opacity-50 hover:opacity-100 hover:text-accent-clay transition-colors"}`}
+              >
+                  EN
+              </button>
+            </div>
           </div>
 
-          <div className={`text-lg font-heading tracking-tight font-bold transition-colors ${isScrolled ? "text-charcoal" : "text-white"}`}>
+          <div
+            className={`text-lg font-heading tracking-tight font-bold transition-colors ${isScrolled ? "text-charcoal" : "text-white"}`}
+          >
             ENGELMANN<span className="opacity-50">-SCHLEPPER</span>
           </div>
 
           <div className="hidden gap-8 items-center md:flex">
-            <a href="#philosophie" className={`text-xs font-data uppercase tracking-widest hover:text-accent-clay transition-colors ${isScrolled ? "text-charcoal" : "text-white"}`}>Manifest</a>
-            <button className={`magnetic-btn bg-accent-clay text-bg-cream px-6 py-2 rounded-full text-xs font-data uppercase tracking-widest overflow-hidden relative group`}>
-              <span className="relative z-10 w-full rounded-full transition-transform">Shop</span>
+            <a
+              href="#philosophie"
+              className={`text-xs font-data uppercase tracking-widest hover:text-accent-clay transition-colors ${isScrolled ? "text-charcoal" : "text-white"}`}
+            >
+              {t.nav.manifesto}
+            </a>
+            <button
+              className={`magnetic-btn bg-accent-clay text-bg-cream px-6 py-2 rounded-full text-xs font-data uppercase tracking-widest overflow-hidden relative group`}
+            >
+              <span className="relative z-10 w-full rounded-full transition-transform">
+                {t.nav.shop}
+              </span>
             </button>
           </div>
 
@@ -144,63 +325,107 @@ export default function App() {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-60 bg-primary-moss text-bg-cream p-8 flex flex-col items-center justify-center gap-8">
-          <button className="absolute top-8 right-8" onClick={() => setMobileMenuOpen(false)}>
+          <button
+            className="absolute top-8 right-8"
+            onClick={() => setMobileMenuOpen(false)}
+          >
             <X size={32} />
           </button>
-          <a href="#kollektion" onClick={() => setMobileMenuOpen(false)} className="text-4xl font-heading">Kollektion</a>
-          <a href="#features" onClick={() => setMobileMenuOpen(false)} className="text-4xl font-heading">Erlebnis</a>
-          <a href="#philosophie" onClick={() => setMobileMenuOpen(false)} className="text-4xl font-heading">Manifesto</a>
+          <a
+            href="#kollektion"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-4xl font-heading"
+          >
+            {t.nav.collection}
+          </a>
+          <a
+            href="#features"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-4xl font-heading"
+          >
+            {t.nav.experience}
+          </a>
+          <a
+            href="#philosophie"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-4xl font-heading"
+          >
+            {t.nav.manifesto}
+          </a>
         </div>
       )}
 
       {/* Hero Section */}
       <section className="relative h-dvh w-full overflow-hidden">
-        <img 
-          src="/images/hero_vineyard_1771712360567.png" 
-          alt="Dark organic vineyard textures" 
-          className="absolute inset-0 w-full h-full object-cover"
+        <img
+          src="https://images.pexels.com/photos/1277181/pexels-photo-1277181.jpeg?auto=compress&cs=tinysrgb&w=3840"
+          alt="Sharp, 4K resolution vineyard in Rheingau, Germany"
+          className="absolute inset-0 w-full h-full object-cover animate-hero-zoom origin-center"
         />
         <div className="absolute inset-0 bg-linear-to-t from-primary-moss to-transparent/30"></div>
-        
+
         <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 lg:pb-32 lg:pl-32">
           <div className="max-w-4xl text-left">
-            <p className="hero-elem opacity-0 translate-y-10 text-xs font-data uppercase tracking-[0.3em] text-accent-clay mb-6">Bioland Weingut & Gästehaus</p>
-            <h1 className="hero-elem opacity-0 translate-y-10 text-5xl md:text-7xl lg:text-[7rem] leading-[0.9] text-bg-cream font-heading tracking-tight mb-2">
-              Rheingauer Gastlichkeit is the
+            <p className="hero-elem opacity-0 translate-y-10 text-xs font-data uppercase tracking-[0.3em] text-accent-clay mb-6">
+              {t.hero.subtitle}
+            </p>
+            <h1 className="hero-elem opacity-0 translate-y-10 text-2xl md:text-3xl lg:text-4xl leading-[0.9] text-bg-cream font-heading tracking-tight mb-2 uppercase">
+              {t.hero.titleTop}
             </h1>
-            <h1 className="hero-elem opacity-0 translate-y-10 text-6xl md:text-8xl lg:text-[8rem] text-bg-cream font-drama italic mb-12 ml-4">
-              Pure Nature.
+            <h1 className="hero-elem opacity-0 translate-y-10 text-7xl md:text-9xl lg:text-[14rem] text-bg-cream font-drama italic mb-12 -ml-2">
+              {t.hero.titleBottom}
             </h1>
-            
+
             <div className="hero-elem opacity-0 translate-y-10 flex flex-col sm:flex-row gap-6 items-start">
               <button className="magnetic-btn bg-accent-clay text-bg-cream px-8 py-4 rounded-4xl text-sm font-data uppercase tracking-widest flex items-center gap-3 w-full sm:w-auto justify-center hover:bg-white hover:text-primary-moss transition-colors">
-                Tasting buchen <ArrowRight size={16} />
+                {t.hero.cta} <ArrowRight size={16} />
               </button>
             </div>
           </div>
         </div>
       </section>
 
+      {/* Trust & Social Proof Bar */}
+      <div className="w-full bg-white border-b border-charcoal/5 py-8 relative z-20">
+        <div className="max-w-7xl mx-auto flex justify-center gap-6 md:gap-24 opacity-60 grayscale hover:grayscale-0 transition-all duration-700 font-data text-[10px] md:text-xs uppercase tracking-[0.3em] flex-wrap px-6 text-center">
+          <div className="flex items-center gap-3">
+             <span className="w-2 h-2 rounded-full bg-primary-moss"></span> {t.trust.bio}
+          </div>
+          <div className="flex items-center gap-3">
+             <span className="w-2 h-2 rounded-full bg-accent-clay"></span> {t.trust.award}
+          </div>
+          <div className="flex items-center gap-3">
+             <span className="w-2 h-2 rounded-full bg-charcoal"></span> {t.trust.hotel}
+          </div>
+        </div>
+      </div>
+
       {/* Features - Interactive Functional Artifacts */}
-      <section id="features" className="py-32 px-6 md:px-16 w-full max-w-7xl mx-auto">
+      <section
+        id="features"
+        className="py-32 px-6 md:px-16 w-full max-w-7xl mx-auto"
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          
           {/* Diagnostic Shuffler */}
           <div className="bg-bg-cream shadow-2xl rounded-[3rem] p-10 h-96 relative overflow-hidden border border-charcoal/5 flex flex-col justify-end">
             <div className="absolute top-10 left-10">
-              <h3 className="font-heading font-bold text-lg mb-2 text-primary-moss">Gastlichkeit</h3>
-              <p className="text-xs text-charcoal/60 font-data uppercase">Erlebnis</p>
+              <h3 className="font-heading font-bold text-lg mb-2 text-primary-moss">
+                {t.features.f1_title}
+              </h3>
+              <p className="text-xs text-charcoal/60 font-data uppercase">
+                {t.features.f1_sub}
+              </p>
             </div>
-            
+
             <div className="relative h-40 w-full mt-12 perspective-1000">
               {shufflerCards.map((text, i) => (
-                <div 
+                <div
                   key={text}
                   className="absolute inset-x-0 bottom-0 bg-white p-6 rounded-2xl shadow-lg border border-charcoal/5 transition-all duration-700 ease-in-out"
                   style={{
                     transform: `translateY(-${i * 15}px) scale(${1 - i * 0.05})`,
                     zIndex: 10 - i,
-                    opacity: 1 - i * 0.2
+                    opacity: 1 - i * 0.2,
                   }}
                 >
                   <p className="font-data text-sm flex items-center justify-between">
@@ -211,89 +436,243 @@ export default function App() {
             </div>
           </div>
 
-          {/* Telemetry Typewriter */}
-          <div className="bg-charcoal text-bg-cream shadow-2xl rounded-[3rem] p-10 h-96 border border-white/10 flex flex-col">
-            <div className="flex justify-between items-center mb-8">
-              <h3 className="font-heading font-bold text-lg">Ökologie</h3>
-              <div className="flex items-center gap-2">
+          {/* Telemetry Typewriter -> Organic Journal */}
+          <div className="bg-primary-moss text-bg-cream shadow-2xl rounded-[3rem] p-10 h-96 border border-white/10 flex flex-col relative overflow-hidden">
+            <div className="absolute -right-10 -bottom-10 opacity-[0.03]">
+               <Grape size={250} />
+            </div>
+            <div className="flex justify-between items-center mb-8 relative z-10">
+              <h3 className="font-heading font-bold text-lg">{t.features.f2_title}</h3>
+              <div className="flex items-center gap-2 opacity-50">
                 <span className="w-2 h-2 rounded-full bg-accent-clay animate-pulse"></span>
-                <span className="text-[10px] uppercase font-data text-accent-clay">Live Feed</span>
+                <span className="text-[10px] uppercase font-data">
+                  {t.features.f2_title} - Log
+                </span>
               </div>
             </div>
-            <div className="font-data text-sm leading-relaxed mt-auto h-32 text-bg-cream/80">
-              <p>{telemetryText}<span className="inline-block w-2 h-4 bg-accent-clay animate-pulse ml-1 align-middle"></span></p>
+            <div className="font-data text-sm leading-relaxed mt-auto h-32 text-bg-cream/90 relative z-10">
+              <p>
+                {telemetryText}
+                <span className="inline-block w-2 h-4 bg-bg-cream/50 ml-1 align-middle animate-pulse"></span>
+              </p>
             </div>
           </div>
 
-          {/* Cursor Protocol Scheduler */}
+          {/* Cursor Protocol Scheduler & Tree Counter */}
           <div className="bg-bg-cream shadow-2xl rounded-[3rem] p-10 h-96 border border-charcoal/5 flex flex-col justify-between overflow-hidden relative group">
-            <div>
-              <h3 className="font-heading font-bold text-lg text-primary-moss mb-2">Innovation</h3>
-              <p className="text-xs text-charcoal/60 font-data uppercase">Wein-Wälder Projekt</p>
+            <div className="relative z-10">
+              <h3 className="font-heading font-bold text-lg text-primary-moss mb-2">
+                {t.features.f3_title}
+              </h3>
+              <p className="text-xs text-charcoal/60 font-data uppercase">
+                {t.features.f3_sub}
+              </p>
             </div>
-            
-            <div className="grid grid-cols-7 gap-2 mt-8">
-              {['S','M','T','W','T','F','S'].map((day, i) => (
-                <div key={i} className={`h-8 rounded-full border border-charcoal/10 flex items-center justify-center text-[10px] font-data ${i === 3 ? 'bg-primary-moss text-white border-transparent' : ''}`}>
-                  {day}
-                </div>
-              ))}
+
+            {/* Tree Target Counter */}
+            <div className="relative z-10 flex flex-col items-center justify-center -mt-6">
+              <span className="font-data text-[10px] uppercase tracking-widest text-charcoal/40 mb-2">
+                {t.features.f3_counter}
+              </span>
+              <div className="flex items-baseline gap-2">
+                <motion.span
+                  className="font-heading text-6xl md:text-7xl text-accent-clay tracking-tighter"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <CountUpTarget target={130} />
+                </motion.span>
+                <span className="font-drama italic text-3xl text-charcoal/30">
+                  / 130
+                </span>
+              </div>
             </div>
-            
-            <button className="w-full mt-8 bg-black/5 rounded-full py-4 text-xs font-data font-bold uppercase tracking-widest group-hover:bg-primary-moss group-hover:text-white transition-colors duration-500">
-              Patenschaft starten
+
+            <button className="w-full mt-auto bg-black/5 rounded-full py-4 text-xs font-data font-bold uppercase tracking-widest group-hover:bg-primary-moss group-hover:text-white transition-colors duration-500 relative overflow-hidden z-10">
+              <span className="relative z-10">{t.features.f3_cta}</span>
             </button>
           </div>
-
         </div>
       </section>
 
-      {/* Philosophy - The Manifesto */}
-      <section id="philosophie" className="relative py-40 bg-charcoal text-bg-cream overflow-hidden px-8">
-        <div className="absolute inset-0 opacity-10">
-          <img src="/images/moss_texture_1771712384013.png" alt="Moss texture" className="w-full h-full object-cover" />
+      {/* Philosophy Section */}
+      <section
+        id="philosophie"
+        className="relative py-32 md:py-64 bg-charcoal text-bg-cream overflow-hidden"
+      >
+        <div
+          className="absolute inset-0 opacity-20 transition-transform duration-500 will-change-transform"
+          id="philosophy-bg"
+        >
+          <img
+            src="https://images.pexels.com/photos/298694/pexels-photo-298694.jpeg?auto=compress&cs=tinysrgb&w=3840"
+            alt="Organic Texture"
+            className="w-full h-full object-cover"
+          />
         </div>
-        <div className="max-w-5xl mx-auto relative z-10 flex flex-col gap-12 text-center md:text-left">
-          <p className="phil-text text-xl md:text-3xl font-heading font-light text-bg-cream/50 tracking-tight">
-            Gängiger Weinbau fokussiert sich auf: Maximalen Ertrag und konventionelle Mittel.
-          </p>
-          <p className="phil-text text-5xl md:text-7xl lg:text-8xl font-drama italic leading-[1.1]">
-            Wir fokussieren uns auf: <span className="text-accent-clay block mt-2">Naturkreisläufe.</span>
-          </p>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-5xl">
+            <p className="font-data text-xs uppercase tracking-[0.4em] text-accent-clay mb-12 philosophy-reveal">
+              {t.philosophy.pre}
+            </p>
+            <h2 className="text-4xl md:text-5xl font-heading tracking-tight mb-8 philosophy-reveal leading-[1.1]">
+              {t.philosophy.top}
+            </h2>
+            <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-drama italic text-accent-clay philosophy-reveal leading-[0.8]">
+              {t.philosophy.bottom1} <br />
+              <span className="text-bg-cream opacity-50">{t.philosophy.bottom2}</span>
+            </h2>
+          </div>
         </div>
       </section>
 
       {/* Protcol - Sticky Stacking Archive */}
-      <section className="relative w-full bg-bg-cream">
+      <section ref={protocolRef} className="relative w-full bg-bg-cream">
         {[
           {
             step: "01",
             title: "Bioland Zertifizierung",
             desc: "Ein voller Übergang zum ökologischen Weinbau. Komplett im Einklang mit Flora und Fauna des Rheingaus.",
-            img: "/images/protocol_bioland_1771712399480.png"
+            img: "https://images.pexels.com/photos/31561190/pexels-photo-31561190.jpeg?auto=compress&cs=tinysrgb&w=2560",
           },
           {
             step: "02",
             title: "Cabernet Blanc & PiWis",
             desc: "Pionierarbeit mit pilzwiderstandsfähigen Rebsorten, um den Pflanzenschutz auf ein absolutes Minimum zu reduzieren.",
-            img: "/images/protocol_innovation_1771712427057.png"
+            img: "https://images.pexels.com/photos/6265917/pexels-photo-6265917.jpeg?auto=compress&cs=tinysrgb&w=2560",
           },
           {
             step: "03",
             title: "Riesling Tradition",
             desc: "Die Seele unserer Böden übersetzt ins Glas. Kristallklar, tiefgründig und geprägt von den Steillagen Martinsthals.",
-            img: "/images/protocol_steillage_1771712442166.png"
-          }
+            img: "https://images.pexels.com/photos/18561571/pexels-photo-18561571.jpeg?auto=compress&cs=tinysrgb&w=2560",
+          },
         ].map((item, index) => (
-          <div key={index} className="protocol-card sticky top-0 h-screen w-full flex items-center justify-center p-6 origin-top bg-bg-cream border-t border-charcoal/5">
-            <div className="max-w-6xl w-full grid md:grid-cols-2 gap-16 items-center">
-              <div className="order-2 md:order-1">
-                <span className="font-data text-accent-clay text-sm mb-6 block">STEP {item.step}</span>
-                <h2 className="text-5xl md:text-7xl font-heading tracking-tight mb-6 text-primary-moss">{item.title}</h2>
-                <p className="text-xl text-charcoal/70 font-light max-w-lg">{item.desc}</p>
+          <div
+            key={index}
+            className="protocol-card sticky top-0 h-screen w-full flex items-center justify-center p-6 origin-top bg-bg-cream border-t border-charcoal/5"
+          >
+            <div className="max-w-7xl w-full grid md:grid-cols-2 gap-16 items-center px-6">
+              <div className="order-2 md:order-1 relative">
+                {/* Protocol Decorations */}
+                <div className="absolute -top-20 -right-10 opacity-30 select-none pointer-events-none">
+                  {index === 0 && (
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 30,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    >
+                      <svg
+                        width="200"
+                        height="200"
+                        viewBox="0 0 100 100"
+                        className="text-accent-clay"
+                      >
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="45"
+                          stroke="currentColor"
+                          strokeWidth="0.2"
+                          fill="none"
+                          strokeDasharray="2 4"
+                        />
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="35"
+                          stroke="currentColor"
+                          strokeWidth="0.2"
+                          fill="none"
+                        />
+                        <path
+                          d="M50 5 L50 95 M5 50 L95 50"
+                          stroke="currentColor"
+                          strokeWidth="0.1"
+                        />
+                        <motion.rect
+                          width="10"
+                          height="10"
+                          x="45"
+                          y="45"
+                          fill="currentColor"
+                          opacity="0.5"
+                          animate={{ rotate: 90 }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
+                      </svg>
+                    </motion.div>
+                  )}
+                  {index === 1 && (
+                    <div className="w-[240px] h-[240px] relative overflow-hidden border border-accent-clay/20 rounded-[3rem]">
+                      <motion.div
+                        className="absolute w-full h-px bg-accent-clay shadow-[0_0_20px_rgba(204,88,51,0.8)] z-10"
+                        animate={{ top: ["0%", "100%", "0%"] }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      />
+                      <div className="absolute inset-0 grid grid-cols-12 grid-rows-12 opacity-10">
+                        {[...Array(144)].map((_, i) => (
+                          <div
+                            key={i}
+                            className="border-[0.5px] border-accent-clay/20"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {index === 2 && (
+                    <div className="w-[200px] h-[100px] flex items-center justify-center">
+                      <svg
+                        width="200"
+                        height="100"
+                        viewBox="0 0 200 100"
+                        className="text-accent-clay opacity-60"
+                      >
+                        <motion.path
+                          d="M0 50 L20 50 L30 10 L50 90 L60 50 L100 50 L110 30 L120 70 L130 50 L200 50"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1"
+                          initial={{ pathLength: 0, opacity: 0 }}
+                          animate={{ pathLength: 1, opacity: 1 }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+
+                <div className="relative z-10">
+                  <span className="font-data text-[10px] text-accent-clay mb-6 block tracking-[0.4em] uppercase">
+                    {item.step} / WEINBAU PHILOSOPHIE
+                  </span>
+                  <h3 className="text-5xl md:text-7xl font-heading tracking-tight mb-8 leading-[1.05] text-primary-moss">
+                    {item.title}
+                  </h3>
+                  <p className="text-xl text-charcoal/80 font-light leading-relaxed max-w-lg">
+                    {item.desc}
+                  </p>
+                </div>
               </div>
-              <div className="order-1 md:order-2 h-[40vh] md:h-[70vh] w-full rounded-[3rem] overflow-hidden">
-                <img src={item.img} alt={item.title} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000" />
+              <div className="order-1 md:order-2 h-[50vh] md:h-[80vh] w-full rounded-[4rem] overflow-hidden shadow-2xl">
+                <img
+                  src={item.img}
+                  alt={item.title}
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                />
               </div>
             </div>
           </div>
@@ -304,16 +683,24 @@ export default function App() {
       <section id="kollektion" className="py-40 bg-bg-cream px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24">
-            <h2 className="text-5xl md:text-7xl font-heading tracking-tight text-primary-moss mb-4">Das Portfolio</h2>
-            <p className="font-data text-accent-clay uppercase tracking-widest text-sm">Bio-Zertifiziert 2023</p>
+            <h2 className="text-5xl md:text-7xl font-heading tracking-tight text-primary-moss mb-4">
+              Das Portfolio
+            </h2>
+            <p className="font-data text-accent-clay uppercase tracking-widest text-sm">
+              Bio-Zertifiziert 2023
+            </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
             {/* Card 1 */}
             <div className="rounded-[3rem] border border-charcoal/10 p-10 flex flex-col bg-white">
-              <p className="font-data text-xs text-charcoal/50 uppercase tracking-widest mb-8">Klassiker</p>
+              <p className="font-data text-xs text-charcoal/50 uppercase tracking-widest mb-8">
+                Klassiker
+              </p>
               <h3 className="font-heading text-3xl mb-4">Riesling Gutswein</h3>
-              <p className="text-charcoal/70 mb-12">Typischer Rheingau Charakter. Mineralisch, frisch, trocken.</p>
+              <p className="text-charcoal/70 mb-12">
+                Typischer Rheingau Charakter. Mineralisch, frisch, trocken.
+              </p>
               <div className="mt-auto">
                 <p className="font-data text-2xl mb-6">12,50€</p>
                 <button className="magnetic-btn w-full py-4 rounded-full border border-primary-moss text-primary-moss font-data uppercase text-xs tracking-widest hover:bg-primary-moss hover:text-white transition-colors">
@@ -327,11 +714,17 @@ export default function App() {
               <div className="absolute -right-10 -top-10 opacity-10">
                 <Grape size={200} />
               </div>
-              <p className="font-data text-xs text-accent-clay uppercase tracking-widest mb-8">Innovation</p>
+              <p className="font-data text-xs text-accent-clay uppercase tracking-widest mb-8">
+                Innovation
+              </p>
               <h3 className="font-heading text-4xl mb-4">Cabernet Blanc</h3>
-              <p className="text-white/70 mb-12 max-w-[80%] relative z-10">PiWi Rebsorte. Komplex, strukturstark und nachhaltig kultiviert.</p>
+              <p className="text-white/70 mb-12 max-w-[80%] relative z-10">
+                PiWi Rebsorte. Komplex, strukturstark und nachhaltig kultiviert.
+              </p>
               <div className="mt-auto relative z-10">
-                <p className="font-data text-3xl mb-6 text-accent-clay">18,50€</p>
+                <p className="font-data text-3xl mb-6 text-accent-clay">
+                  18,50€
+                </p>
                 <button className="magnetic-btn w-full py-4 rounded-full bg-accent-clay text-bg-cream font-data uppercase text-xs tracking-widest hover:bg-white hover:text-primary-moss transition-colors">
                   IN DEN WARENKORB
                 </button>
@@ -340,9 +733,13 @@ export default function App() {
 
             {/* Card 3 */}
             <div className="rounded-[3rem] border border-charcoal/10 p-10 flex flex-col bg-white">
-              <p className="font-data text-xs text-charcoal/50 uppercase tracking-widest mb-8">Elegance</p>
+              <p className="font-data text-xs text-charcoal/50 uppercase tracking-widest mb-8">
+                Elegance
+              </p>
               <h3 className="font-heading text-3xl mb-4">Spätburgunder</h3>
-              <p className="text-charcoal/70 mb-12">Sanft strukturiert, elegant gereift. Im Holzfass ausgebaut.</p>
+              <p className="text-charcoal/70 mb-12">
+                Sanft strukturiert, elegant gereift. Im Holzfass ausgebaut.
+              </p>
               <div className="mt-auto">
                 <p className="font-data text-2xl mb-6">24,00€</p>
                 <button className="magnetic-btn w-full py-4 rounded-full border border-primary-moss text-primary-moss font-data uppercase text-xs tracking-widest hover:bg-primary-moss hover:text-white transition-colors">
@@ -359,21 +756,42 @@ export default function App() {
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid md:grid-cols-4 gap-16 mb-24">
             <div className="md:col-span-2">
-              <h2 className="font-heading text-4xl md:text-5xl mb-6">Engelmann-Schlepper</h2>
-              <p className="text-bg-cream/50 max-w-md font-light">Pure Rheingauer Gastlichkeit. Nachhaltiger Bioweinbau und zertifiziertes 4-Sterne Gästehaus in Martinsthal.</p>
+              <h2 className="font-heading text-4xl md:text-5xl mb-6">
+                Engelmann-Schlepper
+              </h2>
+              <p className="text-bg-cream/50 max-w-md font-light">
+                Pure Rheingauer Gastlichkeit. Nachhaltiger Bioweinbau und
+                zertifiziertes 4-Sterne Gästehaus in Martinsthal.
+              </p>
             </div>
-            
+
             <div>
-              <p className="font-data text-accent-clay uppercase text-xs tracking-widest mb-6">Navigation</p>
+              <p className="font-data text-accent-clay uppercase text-xs tracking-widest mb-6">
+                Navigation
+              </p>
               <ul className="space-y-4 font-light text-bg-cream/70">
-                <li><a href="#" className="hover:text-white transition-colors">Gästehaus & Buchen</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Wein-Wälder Projekt</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Online-Shop</a></li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Gästehaus & Buchen
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Wein-Wälder Projekt
+                  </a>
+                </li>
+                <li>
+                  <a href="#" className="hover:text-white transition-colors">
+                    Online-Shop
+                  </a>
+                </li>
               </ul>
             </div>
 
             <div>
-              <p className="font-data text-accent-clay uppercase text-xs tracking-widest mb-6">Kontakt</p>
+              <p className="font-data text-accent-clay uppercase text-xs tracking-widest mb-6">
+                Kontakt
+              </p>
               <ul className="space-y-4 font-light text-bg-cream/70">
                 <li>Hauptstraße 55</li>
                 <li>65344 Eltville - Martinsthal</li>
@@ -385,16 +803,21 @@ export default function App() {
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              <span className="font-data text-[10px] uppercase tracking-widest text-bg-cream/50">System Operational - Shop Online</span>
+              <span className="font-data text-[10px] uppercase tracking-widest text-bg-cream/50">
+                System Operational - Shop Online
+              </span>
             </div>
             <div className="flex gap-6 font-data text-[10px] uppercase tracking-widest text-bg-cream/50">
-              <a href="#" className="hover:text-white">Impressum</a>
-              <a href="#" className="hover:text-white">Datenschutz</a>
+              <a href="#" className="hover:text-white">
+                Impressum
+              </a>
+              <a href="#" className="hover:text-white">
+                Datenschutz
+              </a>
             </div>
           </div>
         </div>
       </footer>
-
     </div>
   );
 }
