@@ -36,9 +36,12 @@ const translations = {
       f1_sub: "Erlebnis",
       f1_cards: ["4-Sterne Gästehaus", "Inmitten der Reben", "Auszeit im Rheingau"],
       f2_title: "Ökologie",
+      f2_log: "100% Umstellung auf ökologischen Weinbau. Die erste Voll-Bio Ernte steht an.",
       f3_title: "Innovation",
       f3_sub: "Wein-Wälder Projekt",
       f3_counter: "Gepflanzte klima-resiliente Bäume",
+      f3_desc1: "Pionierarbeit im Vitiforst: Bäume",
+      f3_desc2: "direkt im Weinberg gegen den Klimawandel.",
       f3_cta: "Patenschaft starten"
     },
     philosophy: {
@@ -46,6 +49,58 @@ const translations = {
       top: "Nachhaltiges Handeln ist uns ein Herzensanliegen.",
       bottom1: "Wir haben die Erde nicht von unseren Eltern geerbt, ",
       bottom2: "sondern von unseren Kindern geliehen."
+    },
+    protocol: [
+      {
+        step: "01",
+        title: "Bioland Zertifizierung",
+        desc: "Ein voller Übergang zum ökologischen Weinbau. Komplett im Einklang mit Flora und Fauna des Rheingaus.",
+        img: "https://images.pexels.com/photos/31561190/pexels-photo-31561190.jpeg?auto=compress&cs=tinysrgb&w=2560",
+      },
+      {
+        step: "02",
+        title: "Cabernet Blanc & PiWis",
+        desc: "Pionierarbeit mit pilzwiderstandsfähigen Rebsorten, um den Pflanzenschutz auf ein absolutes Minimum zu reduzieren.",
+        img: "https://images.pexels.com/photos/6265917/pexels-photo-6265917.jpeg?auto=compress&cs=tinysrgb&w=2560",
+      },
+      {
+        step: "03",
+        title: "Riesling Tradition",
+        desc: "Die Seele unserer Böden übersetzt ins Glas. Kristallklar, tiefgründig und geprägt von den Steillagen Martinsthals.",
+        img: "https://images.pexels.com/photos/18561571/pexels-photo-18561571.jpeg?auto=compress&cs=tinysrgb&w=2560",
+      },
+    ],
+    collection: {
+      title: "Das Portfolio",
+      sub: "Bio-Zertifiziert 2023",
+      c1_top: "Kennenlernen",
+      c1_title: "6er Probierpaket",
+      c1_desc: "\"Neue Entdeckungen\". 6 ausgesuchte Weine inkl. Trauben-Secco.",
+      c1_price: "49,00€",
+      c2_top: "Innovation",
+      c2_title: "Cabernet Blanc",
+      c2_desc: "PiWi Rebsorte. Komplex, strukturstark und nachhaltig kultiviert.",
+      c2_price: "18,50€",
+      c3_top: "Elegance",
+      c3_title: "Spätburgunder",
+      c3_desc: "Sanft strukturiert, elegant gereift. Im Holzfass ausgebaut.",
+      c3_price: "24,00€",
+      cta: "IN DEN WARENKORB"
+    },
+    footer: {
+      brand: "Engelmann-Schlepper",
+      desc: "Pure Rheingauer Gastlichkeit. Nachhaltiger Bioweinbau und zertifiziertes 4-Sterne Gästehaus in Martinsthal.",
+      navTitle: "Navigation",
+      nav1: "Gästehaus & Buchen",
+      nav2: "Wein-Wälder Projekt",
+      nav3: "Online-Shop",
+      contactTitle: "Kontakt",
+      contact1: "Hauptstraße 55",
+      contact2: "65344 Eltville - Martinsthal",
+      contact3: "06123 - 71412",
+      bio: "ÖKO-KONTROLLSTELLE: DE-ÖKO-006 / BIOLAND",
+      imprint: "Impressum",
+      privacy: "Datenschutz"
     }
   },
   EN: {
@@ -71,9 +126,12 @@ const translations = {
       f1_sub: "Experience",
       f1_cards: ["4-Star Guesthouse", "Amidst the Vines", "Rheingau Getaway"],
       f2_title: "Ecology",
+      f2_log: "100% conversion to organic viticulture. The first fully organic harvest is approaching.",
       f3_title: "Innovation",
       f3_sub: "Wine-Forest Project",
       f3_counter: "Planted climate-resilient trees",
+      f3_desc1: "Pioneering Vitiforestry: trees",
+      f3_desc2: "directly in the vineyard against climate change.",
       f3_cta: "Start Sponsorship"
     },
     philosophy: {
@@ -81,6 +139,58 @@ const translations = {
       top: "Sustainable action is a matter close to our hearts.",
       bottom1: "We do not inherit the earth from our ancestors, ",
       bottom2: "we borrow it from our children."
+    },
+    protocol: [
+      {
+        step: "01",
+        title: "Bioland Certification",
+        desc: "A full transition to organic viticulture. Completely in harmony with the flora and fauna of the Rheingau.",
+        img: "https://images.pexels.com/photos/31561190/pexels-photo-31561190.jpeg?auto=compress&cs=tinysrgb&w=2560",
+      },
+      {
+        step: "02",
+        title: "Cabernet Blanc & PiWis",
+        desc: "Pioneering work with fungus-resistant grape varieties to reduce crop protection to an absolute minimum.",
+        img: "https://images.pexels.com/photos/6265917/pexels-photo-6265917.jpeg?auto=compress&cs=tinysrgb&w=2560",
+      },
+      {
+        step: "03",
+        title: "Riesling Tradition",
+        desc: "The soul of our soils translated into the glass. Crystal clear, profound and shaped by the steep slopes of Martinsthal.",
+        img: "https://images.pexels.com/photos/18561571/pexels-photo-18561571.jpeg?auto=compress&cs=tinysrgb&w=2560",
+      },
+    ],
+    collection: {
+      title: "The Portfolio",
+      sub: "Organic Certified 2023",
+      c1_top: "Discover",
+      c1_title: "6-Bottle Tasting Box",
+      c1_desc: "\"New Discoveries\". 6 selected wines including Grape Secco.",
+      c1_price: "49.00€",
+      c2_top: "Innovation",
+      c2_title: "Cabernet Blanc",
+      c2_desc: "PiWi Grape. Complex, strong structure and sustainably cultivated.",
+      c2_price: "18.50€",
+      c3_top: "Elegance",
+      c3_title: "Pinot Noir",
+      c3_desc: "Softly structured, elegantly matured. Aged in wooden barrels.",
+      c3_price: "24.00€",
+      cta: "ADD TO CART"
+    },
+    footer: {
+      brand: "Engelmann-Schlepper",
+      desc: "Pure Rheingau hospitality. Sustainable organic viticulture and certified 4-star guesthouse in Martinsthal.",
+      navTitle: "Navigation",
+      nav1: "Guesthouse & Booking",
+      nav2: "Wine-Forest Project",
+      nav3: "Online Store",
+      contactTitle: "Contact",
+      contact1: "Hauptstraße 55",
+      contact2: "65344 Eltville - Martinsthal",
+      contact3: "06123 - 71412",
+      bio: "ECO-CONTROL BODY: DE-ÖKO-006 / BIOLAND",
+      imprint: "Imprint",
+      privacy: "Privacy Policy"
     }
   }
 };
@@ -128,8 +238,7 @@ export default function App() {
 
   // Telemetry Typewriter State
   const [telemetryText, setTelemetryText] = useState("");
-  const fullText =
-    "100% Umstellung auf ökologischen Weinbau. Die erste Voll-Bio Ernte steht an.";
+  const fullText = t.features.f2_log;
 
   // Diagnostic Shuffler State
   const [shufflerCards, setShufflerCards] = useState(t.features.f1_cards);
@@ -211,17 +320,18 @@ export default function App() {
 
   // Typewriter Effect
   useEffect(() => {
+    setTelemetryText("");
     let i = 0;
     const typingInterval = setInterval(() => {
       if (i < fullText.length) {
-        setTelemetryText((prev) => prev + fullText.charAt(i));
+        setTelemetryText((prev) => fullText.substring(0, i + 1));
         i++;
       } else {
         clearInterval(typingInterval);
       }
-    }, 100);
+    }, 40);
     return () => clearInterval(typingInterval);
-  }, []);
+  }, [fullText]);
 
   // Shuffler Effect
   useEffect(() => {
@@ -505,7 +615,7 @@ export default function App() {
               
               <div className="bg-white/50 backdrop-blur-md rounded-2xl p-4 border border-white w-full">
                 <p className="text-charcoal/70 text-xs text-center font-light leading-relaxed">
-                  Pionierarbeit im Vitiforst: Bäume <br/>direkt im Weinberg gegen den Klimawandel.
+                  {t.features.f3_desc1} <br/>{t.features.f3_desc2}
                 </p>
               </div>
             </div>
@@ -551,26 +661,7 @@ export default function App() {
 
       {/* Protcol - Sticky Stacking Archive */}
       <section ref={protocolRef} className="relative w-full bg-bg-cream">
-        {[
-          {
-            step: "01",
-            title: "Bioland Zertifizierung",
-            desc: "Ein voller Übergang zum ökologischen Weinbau. Komplett im Einklang mit Flora und Fauna des Rheingaus.",
-            img: "https://images.pexels.com/photos/31561190/pexels-photo-31561190.jpeg?auto=compress&cs=tinysrgb&w=2560",
-          },
-          {
-            step: "02",
-            title: "Cabernet Blanc & PiWis",
-            desc: "Pionierarbeit mit pilzwiderstandsfähigen Rebsorten, um den Pflanzenschutz auf ein absolutes Minimum zu reduzieren.",
-            img: "https://images.pexels.com/photos/6265917/pexels-photo-6265917.jpeg?auto=compress&cs=tinysrgb&w=2560",
-          },
-          {
-            step: "03",
-            title: "Riesling Tradition",
-            desc: "Die Seele unserer Böden übersetzt ins Glas. Kristallklar, tiefgründig und geprägt von den Steillagen Martinsthals.",
-            img: "https://images.pexels.com/photos/18561571/pexels-photo-18561571.jpeg?auto=compress&cs=tinysrgb&w=2560",
-          },
-        ].map((item, index) => (
+        {t.protocol.map((item, index) => (
           <div
             key={index}
             className="protocol-card sticky top-0 h-screen w-full flex items-center justify-center p-6 origin-top bg-bg-cream border-t border-charcoal/5"
@@ -701,10 +792,10 @@ export default function App() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24">
             <h2 className="text-5xl md:text-7xl font-heading tracking-tight text-primary-moss mb-4">
-              Das Portfolio
+              {t.collection.title}
             </h2>
             <p className="font-data text-accent-clay uppercase tracking-widest text-sm">
-              Bio-Zertifiziert 2023
+              {t.collection.sub}
             </p>
           </div>
 
@@ -712,16 +803,16 @@ export default function App() {
             {/* Card 1 */}
             <div className="rounded-[3rem] border border-charcoal/10 p-10 flex flex-col bg-white">
               <p className="font-data text-xs text-charcoal/50 uppercase tracking-widest mb-8">
-                Kennenlernen
+                {t.collection.c1_top}
               </p>
-              <h3 className="font-heading text-3xl mb-4">6er Probierpaket</h3>
+              <h3 className="font-heading text-3xl mb-4">{t.collection.c1_title}</h3>
               <p className="text-charcoal/70 mb-12">
-                "Neue Entdeckungen". 6 ausgesuchte Weine inkl. Trauben-Secco. 
+                {t.collection.c1_desc}
               </p>
               <div className="mt-auto">
-                <p className="font-data text-2xl mb-6">49,00€</p>
+                <p className="font-data text-2xl mb-6">{t.collection.c1_price}</p>
                 <button className="magnetic-btn w-full py-4 rounded-full border border-primary-moss text-primary-moss font-data uppercase text-xs tracking-widest hover:bg-primary-moss hover:text-white transition-colors">
-                  IN DEN WARENKORB
+                  {t.collection.cta}
                 </button>
               </div>
             </div>
@@ -732,18 +823,18 @@ export default function App() {
                 <Grape size={200} />
               </div>
               <p className="font-data text-xs text-accent-clay uppercase tracking-widest mb-8">
-                Innovation
+                {t.collection.c2_top}
               </p>
-              <h3 className="font-heading text-4xl mb-4">Cabernet Blanc</h3>
+              <h3 className="font-heading text-4xl mb-4">{t.collection.c2_title}</h3>
               <p className="text-white/70 mb-12 max-w-[80%] relative z-10">
-                PiWi Rebsorte. Komplex, strukturstark und nachhaltig kultiviert.
+                {t.collection.c2_desc}
               </p>
               <div className="mt-auto relative z-10">
                 <p className="font-data text-3xl mb-6 text-accent-clay">
-                  18,50€
+                  {t.collection.c2_price}
                 </p>
                 <button className="magnetic-btn w-full py-4 rounded-full bg-accent-clay text-bg-cream font-data uppercase text-xs tracking-widest hover:bg-white hover:text-primary-moss transition-colors">
-                  IN DEN WARENKORB
+                  {t.collection.cta}
                 </button>
               </div>
             </div>
@@ -751,16 +842,16 @@ export default function App() {
             {/* Card 3 */}
             <div className="rounded-[3rem] border border-charcoal/10 p-10 flex flex-col bg-white">
               <p className="font-data text-xs text-charcoal/50 uppercase tracking-widest mb-8">
-                Elegance
+                {t.collection.c3_top}
               </p>
-              <h3 className="font-heading text-3xl mb-4">Spätburgunder</h3>
+              <h3 className="font-heading text-3xl mb-4">{t.collection.c3_title}</h3>
               <p className="text-charcoal/70 mb-12">
-                Sanft strukturiert, elegant gereift. Im Holzfass ausgebaut.
+                {t.collection.c3_desc}
               </p>
               <div className="mt-auto">
-                <p className="font-data text-2xl mb-6">24,00€</p>
+                <p className="font-data text-2xl mb-6">{t.collection.c3_price}</p>
                 <button className="magnetic-btn w-full py-4 rounded-full border border-primary-moss text-primary-moss font-data uppercase text-xs tracking-widest hover:bg-primary-moss hover:text-white transition-colors">
-                  IN DEN WARENKORB
+                  {t.collection.cta}
                 </button>
               </div>
             </div>
@@ -774,45 +865,38 @@ export default function App() {
           <div className="grid md:grid-cols-4 gap-16 mb-24">
             <div className="md:col-span-2">
               <h2 className="font-heading text-4xl md:text-5xl mb-6">
-                Engelmann-Schlepper
+                {t.footer.brand}
               </h2>
               <p className="text-bg-cream/50 max-w-md font-light">
-                Pure Rheingauer Gastlichkeit. Nachhaltiger Bioweinbau und
-                zertifiziertes 4-Sterne Gästehaus in Martinsthal.
+                {t.footer.desc}
               </p>
             </div>
 
             <div>
               <p className="font-data text-accent-clay uppercase text-xs tracking-widest mb-6">
-                Navigation
+                {t.footer.navTitle}
               </p>
               <ul className="space-y-4 font-light text-bg-cream/70">
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Gästehaus & Buchen
-                  </a>
+                  <a href="#" className="hover:text-white transition-colors">{t.footer.nav1}</a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Wein-Wälder Projekt
-                  </a>
+                  <a href="#" className="hover:text-white transition-colors">{t.footer.nav2}</a>
                 </li>
                 <li>
-                  <a href="#" className="hover:text-white transition-colors">
-                    Online-Shop
-                  </a>
+                  <a href="#" className="hover:text-white transition-colors">{t.footer.nav3}</a>
                 </li>
               </ul>
             </div>
 
             <div>
               <p className="font-data text-accent-clay uppercase text-xs tracking-widest mb-6">
-                Kontakt
+                {t.footer.contactTitle}
               </p>
               <ul className="space-y-4 font-light text-bg-cream/70">
-                <li>Hauptstraße 55</li>
-                <li>65344 Eltville - Martinsthal</li>
-                <li>06123 - 71412</li>
+                <li>{t.footer.contact1}</li>
+                <li>{t.footer.contact2}</li>
+                <li>{t.footer.contact3}</li>
               </ul>
             </div>
           </div>
@@ -821,16 +905,12 @@ export default function App() {
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-primary-moss animate-pulse"></span>
               <span className="font-data text-[10px] uppercase tracking-widest text-bg-cream/50">
-                ÖKO-KONTROLLSTELLE: DE-ÖKO-006 / BIOLAND
+                {t.footer.bio}
               </span>
             </div>
             <div className="flex gap-6 font-data text-[10px] uppercase tracking-widest text-bg-cream/50">
-              <a href="#" className="hover:text-white">
-                Impressum
-              </a>
-              <a href="#" className="hover:text-white">
-                Datenschutz
-              </a>
+              <a href="#" className="hover:text-white">{t.footer.imprint}</a>
+              <a href="#" className="hover:text-white">{t.footer.privacy}</a>
             </div>
           </div>
         </div>
