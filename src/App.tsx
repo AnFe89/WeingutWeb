@@ -55,19 +55,19 @@ const translations = {
         step: "01",
         title: "Bioland Zertifizierung",
         desc: "Ein voller Übergang zum ökologischen Weinbau. Komplett im Einklang mit Flora und Fauna des Rheingaus.",
-        img: "/images/protocol_bioland_1771712399480.png",
+        img: "https://images.pexels.com/photos/31561190/pexels-photo-31561190.jpeg?auto=compress&cs=tinysrgb&w=2560",
       },
       {
         step: "02",
         title: "Pionierarbeit ViTiForst",
         desc: "2021 pflanzten Opa Friedel und Johannes unsere erste 'Gute Luise'. Heute setzen wir hunderte Bäume direkt ins Rebenmeer.",
-        img: "/images/protocol_innovation_1771712427057.png",
+        img: "https://images.pexels.com/photos/6265917/pexels-photo-6265917.jpeg?auto=compress&cs=tinysrgb&w=2560",
       },
       {
         step: "03",
         title: "Martinsthaler Steillagen",
         desc: "Die Seele unserer Böden am Schlangengraben und der Wildsau übersetzt ins Glas. Kristallklar, tiefgründig und typisch Rheingau.",
-        img: "/images/protocol_steillage_1771712442166.png",
+        img: "https://images.pexels.com/photos/18561571/pexels-photo-18561571.jpeg?auto=compress&cs=tinysrgb&w=2560",
       },
     ],
     collection: {
@@ -145,19 +145,19 @@ const translations = {
         step: "01",
         title: "Bioland Certification",
         desc: "A full transition to organic viticulture. Completely in harmony with the flora and fauna of the Rheingau.",
-        img: "/images/protocol_bioland_1771712399480.png",
+        img: "https://images.pexels.com/photos/31561190/pexels-photo-31561190.jpeg?auto=compress&cs=tinysrgb&w=2560",
       },
       {
         step: "02",
         title: "Pioneering ViTiForst",
         desc: "In 2021 Grandpa Friedel and Johannes planted our first 'Gute Luise' tree. Today we plant hundreds of trees directly into the sea of vines.",
-        img: "/images/protocol_innovation_1771712427057.png",
+        img: "https://images.pexels.com/photos/6265917/pexels-photo-6265917.jpeg?auto=compress&cs=tinysrgb&w=2560",
       },
       {
         step: "03",
         title: "Martinsthal Steep Slopes",
         desc: "The soul of our soils at Schlangengraben and Wildsau translated into the glass. Crystal clear, profound and typical Rheingau.",
-        img: "/images/protocol_steillage_1771712442166.png",
+        img: "https://images.pexels.com/photos/18561571/pexels-photo-18561571.jpeg?auto=compress&cs=tinysrgb&w=2560",
       },
     ],
     collection: {
@@ -468,8 +468,8 @@ export default function App() {
       {/* Hero Section */}
       <section className="relative h-dvh w-full overflow-hidden">
         <img
-          src="/images/hero_vineyard_german.png"
-          alt="Rheingau Vineyard"
+          src="https://images.pexels.com/photos/1277181/pexels-photo-1277181.jpeg?auto=compress&cs=tinysrgb&w=3840"
+          alt="Dark Moody Wine Background"
           className="absolute inset-0 w-full h-full object-cover origin-center animate-hero-zoom"
         />
         <div className="absolute inset-0 bg-linear-to-t from-primary-moss to-transparent/30"></div>
