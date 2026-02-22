@@ -474,7 +474,7 @@ export default function App() {
               <span className="font-data text-[10px] uppercase tracking-widest text-charcoal/40 mb-2">
                 {t.features.f3_counter}
               </span>
-              <div className="flex items-baseline gap-2">
+              <div className="flex items-baseline gap-1 mb-4">
                 <motion.span
                   className="font-heading text-6xl md:text-7xl text-accent-clay tracking-tighter"
                   initial={{ opacity: 0, y: 20 }}
@@ -483,10 +483,13 @@ export default function App() {
                 >
                   <CountUpTarget target={130} />
                 </motion.span>
-                <span className="font-drama italic text-3xl text-charcoal/30">
-                  / 130
+                <span className="font-heading text-4xl text-accent-clay">
+                  +
                 </span>
               </div>
+              <p className="text-charcoal/60 text-xs text-center font-light leading-relaxed px-2">
+                Pionierarbeit im Vitiforst (Agroforst): Bäume direkt im Weinberg gegen den Klimawandel.
+              </p>
             </div>
 
             <button className="w-full mt-auto bg-black/5 rounded-full py-4 text-xs font-data font-bold uppercase tracking-widest group-hover:bg-primary-moss group-hover:text-white transition-colors duration-500 relative overflow-hidden z-10">
