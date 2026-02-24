@@ -10,13 +10,26 @@
   /* Preset A - Organic Tech */
   --color-primary-moss: #2e4036;
   --color-accent-clay: #cc5833;
+  --color-accent-gold: #ca8a04;
   --color-bg-cream: #f2f0e9;
   --color-charcoal: #1a1a1a;
 }
 
 @layer base {
-  a, button {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  a,
+  button {
     @apply transition-all duration-300;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-accent-clay);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
@@ -32,8 +45,9 @@
 .magnetic-btn:hover {
   transform: scale(1.03);
 }
-.magnetic-btn:hover {
-  transform: scale(1.03);
+
+.magnetic-btn:active {
+  transform: scale(0.97);
 }
 
 .noise-bg {
@@ -56,4 +70,19 @@
 .animate-hero-zoom {
   animation: zoom-in-out 30s ease-in-out infinite alternate;
   will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-hero-zoom {
+    animation: none !important;
+  }
 }

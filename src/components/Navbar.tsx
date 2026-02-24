@@ -14,6 +14,7 @@ export function Navbar({ lang, setLang }: NavbarProps) {
   const location = useLocation();
   const isShop = location.pathname === "/shop";
   
+  const [activeSection, setActiveSection] = useState<string>("");
   const t = translations[lang];
 
   useEffect(() => {
@@ -24,6 +25,34 @@ export function Navbar({ lang, setLang }: NavbarProps) {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isShop) return;
+    const sections = document.querySelectorAll("section[id]");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [isShop]);
+
+  const navLinkClass = (sectionId: string) =>
+    `transition-all duration-300 ${
+      isScrolled
+        ? activeSection === sectionId
+          ? "text-accent-clay font-bold"
+          : "text-charcoal/60 hover:text-charcoal hover:-translate-y-px"
+        : activeSection === sectionId
+          ? "text-white font-bold"
+          : "text-white/70 hover:text-white hover:-translate-y-px"
+    }`;
 
   return (
     <>
@@ -61,31 +90,19 @@ export function Navbar({ lang, setLang }: NavbarProps) {
               <>
                 <a
                   href="#kollektion"
-                  className={`transition-all duration-300 ${
-                    isScrolled
-                      ? "text-charcoal/60 hover:text-charcoal hover:-translate-y-px"
-                      : "text-white/70 hover:text-white hover:-translate-y-px"
-                  }`}
+                  className={navLinkClass("kollektion")}
                 >
                   {t.nav.collection}
                 </a>
                 <a
                   href="#features"
-                  className={`transition-all duration-300 ${
-                    isScrolled
-                      ? "text-charcoal/60 hover:text-charcoal hover:-translate-y-px"
-                      : "text-white/70 hover:text-white hover:-translate-y-px"
-                  }`}
+                  className={navLinkClass("features")}
                 >
                   {t.nav.experience}
                 </a>
                 <a
                   href="#philosophie"
-                  className={`transition-all duration-300 ${
-                    isScrolled
-                      ? "text-charcoal/60 hover:text-charcoal hover:-translate-y-px"
-                      : "text-white/70 hover:text-white hover:-translate-y-px"
-                  }`}
+                  className={navLinkClass("philosophie")}
                 >
                   {t.nav.manifesto}
                 </a>
@@ -125,6 +142,7 @@ export function Navbar({ lang, setLang }: NavbarProps) {
               className={`font-data text-xs transition-colors ${
                 isScrolled || isShop ? "text-charcoal" : "text-white"
               }`}
+              aria-label={`Sprache wechseln zu ${lang === "DE" ? "Englisch" : "Deutsch"}`}
             >
               {lang === "DE" ? "EN" : "DE"}
             </button>
@@ -133,6 +151,8 @@ export function Navbar({ lang, setLang }: NavbarProps) {
                 isScrolled || isShop ? "text-charcoal" : "text-white"
               }`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Menü schließen" : "Menü öffnen"}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -141,50 +161,57 @@ export function Navbar({ lang, setLang }: NavbarProps) {
       </nav>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-primary-moss text-bg-cream pt-32 px-8 flex flex-col gap-8">
-          {isShop ? (
-            <Link
-              to="/"
+      <div
+        className={`fixed inset-0 z-40 bg-primary-moss text-bg-cream pt-32 px-8 flex flex-col gap-8 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${
+          mobileMenuOpen
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-4 pointer-events-none"
+        }`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Hauptmenü"
+      >
+        {isShop ? (
+          <Link
+            to="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-4xl font-heading"
+          >
+            Home
+          </Link>
+        ) : (
+          <>
+            <a
+              href="#kollektion"
               onClick={() => setMobileMenuOpen(false)}
               className="text-4xl font-heading"
             >
-              Home
-            </Link>
-          ) : (
-            <>
-              <a
-                href="#kollektion"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-4xl font-heading"
-              >
-                {t.nav.collection}
-              </a>
-              <a
-                href="#features"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-4xl font-heading"
-              >
-                {t.nav.experience}
-              </a>
-              <a
-                href="#philosophie"
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-4xl font-heading"
-              >
-                {t.nav.manifesto}
-              </a>
-            </>
-          )}
-          <Link
-            to="/shop"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-4xl font-heading text-accent-clay"
-          >
-            {t.nav.shop}
-          </Link>
-        </div>
-      )}
+              {t.nav.collection}
+            </a>
+            <a
+              href="#features"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-4xl font-heading"
+            >
+              {t.nav.experience}
+            </a>
+            <a
+              href="#philosophie"
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-4xl font-heading"
+            >
+              {t.nav.manifesto}
+            </a>
+          </>
+        )}
+        <Link
+          to="/shop"
+          onClick={() => setMobileMenuOpen(false)}
+          className="text-4xl font-heading text-accent-clay"
+        >
+          {t.nav.shop}
+        </Link>
+      </div>
     </>
   );
 }

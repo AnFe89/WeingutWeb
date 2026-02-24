@@ -164,8 +164,9 @@ export function Home({ lang }: { lang: Language }) {
       <section className="relative h-dvh w-full overflow-hidden">
         <img
           src="https://images.pexels.com/photos/1277181/pexels-photo-1277181.jpeg?auto=compress&cs=tinysrgb&w=3840"
-          alt="Dark Moody Wine Background"
+          alt="Weinfässer im Keller des Weingut Engelmann"
           className="absolute inset-0 w-full h-full object-cover origin-center animate-hero-zoom"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-linear-to-t from-primary-moss to-transparent/30"></div>
 
@@ -176,9 +177,9 @@ export function Home({ lang }: { lang: Language }) {
             </p>
             <h1 className="hero-elem text-2xl md:text-3xl lg:text-4xl leading-[0.9] text-bg-cream font-heading tracking-tight mb-2 uppercase">
               {t.hero.titleTop}
-            </h1>
-            <h1 className="hero-elem text-7xl md:text-9xl lg:text-[14rem] text-bg-cream font-drama italic mb-12 -ml-2">
-              {t.hero.titleBottom}
+              <span className="hero-elem block text-7xl md:text-9xl lg:text-[14rem] text-bg-cream font-drama italic mb-12 -ml-2">
+                {t.hero.titleBottom}
+              </span>
             </h1>
 
             <div className="hero-elem flex flex-col sm:flex-row gap-6 items-start">
@@ -337,8 +338,9 @@ export function Home({ lang }: { lang: Language }) {
         >
           <img
             src="https://images.pexels.com/photos/298694/pexels-photo-298694.jpeg?auto=compress&cs=tinysrgb&w=3840"
-            alt="Organic Texture"
+            alt="Weinberge im Rheingau bei Sonnenaufgang"
             className="w-full h-full object-cover"
+            loading="lazy"
           />
         </div>
 
@@ -479,6 +481,7 @@ export function Home({ lang }: { lang: Language }) {
                   src={item.img}
                   alt={item.title}
                   className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  loading="lazy"
                 />
               </div>
             </div>
