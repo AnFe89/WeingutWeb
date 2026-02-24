@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&family=Plus+Jakarta+Sans:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-heading: "Plus Jakarta Sans", "Outfit", sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
   --font-drama: "Cormorant Garamond", serif;
   --font-data: "IBM Plex Mono", monospace;
 
@@ -69,7 +69,6 @@
 
 .animate-hero-zoom {
   animation: zoom-in-out 30s ease-in-out infinite alternate;
-  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {

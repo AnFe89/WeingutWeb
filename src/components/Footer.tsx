@@ -10,7 +10,7 @@ export function Footer({ lang }: FooterProps) {
   return (
     <footer className="bg-charcoal text-bg-cream rounded-t-[4rem] px-8 pt-24 pb-12 mt-20 relative overflow-hidden">
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid md:grid-cols-4 gap-16 mb-24">
+        <div className="grid md:grid-cols-5 gap-12 md:gap-16 mb-24">
           <div className="md:col-span-2">
             <h2 className="font-heading text-4xl md:text-5xl mb-6">
               {t.footer.brand}
@@ -26,10 +26,10 @@ export function Footer({ lang }: FooterProps) {
             </p>
             <ul className="space-y-4 font-light text-bg-cream/70">
               <li>
-                <a href="#" className="hover:text-white transition-colors">{t.footer.nav1}</a>
+                <a href="#features" className="hover:text-white transition-colors">{t.footer.nav1}</a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">{t.footer.nav2}</a>
+                <a href="#philosophie" className="hover:text-white transition-colors">{t.footer.nav2}</a>
               </li>
               <li>
                 <a href="/shop" className="hover:text-white transition-colors">{t.footer.nav3}</a>
@@ -44,7 +44,23 @@ export function Footer({ lang }: FooterProps) {
             <ul className="space-y-4 font-light text-bg-cream/70">
               <li>{t.footer.contact1}</li>
               <li>{t.footer.contact2}</li>
-              <li>{t.footer.contact3}</li>
+              <li>
+                <a href="tel:+49612371412" className="hover:text-white transition-colors">{t.footer.contact3}</a>
+              </li>
+              <li>
+                <a href={`mailto:${t.footer.email}`} className="hover:text-white transition-colors">{t.footer.email}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p className="font-data text-accent-clay uppercase text-xs tracking-widest mb-6">
+              {t.footer.hoursTitle}
+            </p>
+            <ul className="space-y-4 font-light text-bg-cream/70">
+              <li>{t.footer.hours1}</li>
+              <li>{t.footer.hours2}</li>
+              <li>{t.footer.hours3}</li>
             </ul>
           </div>
         </div>

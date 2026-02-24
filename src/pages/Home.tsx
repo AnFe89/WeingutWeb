@@ -13,6 +13,7 @@ import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 import { Language, translations } from "../data/translations";
+import { useReducedMotion } from "../hooks/useReducedMotion";
 
 // Simple unmounted accessible counter component to simulate a live counter
 function CountUpTarget({ target }: { target: number }) {
@@ -47,6 +48,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function Home({ lang }: { lang: Language }) {
   const t = translations[lang];
+  const prefersReduced = useReducedMotion();
 
   // Ref for all animations
   const appRef = useRef(null);
@@ -68,6 +70,8 @@ export function Home({ lang }: { lang: Language }) {
 
   // GSAP Animations Lifecycle
   useEffect(() => {
+    if (prefersReduced) return;
+
     let ctx = gsap.context(() => {
       // Hero Animations
       gsap.from(".hero-elem", {
@@ -128,10 +132,14 @@ export function Home({ lang }: { lang: Language }) {
     }, appRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [prefersReduced]);
 
   // Typewriter Effect
   useEffect(() => {
+    if (prefersReduced) {
+      setTelemetryText(fullText);
+      return;
+    }
     setTelemetryText("");
     let i = 0;
     const typingInterval = setInterval(() => {
@@ -143,10 +151,11 @@ export function Home({ lang }: { lang: Language }) {
       }
     }, 40);
     return () => clearInterval(typingInterval);
-  }, [fullText]);
+  }, [fullText, prefersReduced]);
 
   // Shuffler Effect
   useEffect(() => {
+    if (prefersReduced) return;
     const interval = setInterval(() => {
       setShufflerCards((prev) => {
         const newArr = [...prev];
@@ -156,7 +165,7 @@ export function Home({ lang }: { lang: Language }) {
       });
     }, 3000);
     return () => clearInterval(interval);
-  }, []);
+  }, [prefersReduced]);
 
   return (
     <div ref={appRef}>
@@ -365,7 +374,7 @@ export function Home({ lang }: { lang: Language }) {
         {t.protocol.map((item, index) => (
           <div
             key={index}
-            className="protocol-card sticky top-0 h-screen w-full flex items-center justify-center p-6 origin-top bg-bg-cream border-t border-charcoal/5"
+            className="protocol-card md:sticky md:top-0 md:h-screen w-full flex items-center justify-center p-6 py-16 md:py-6 origin-top bg-bg-cream border-t border-charcoal/5"
           >
             <div className="max-w-7xl w-full grid md:grid-cols-2 gap-16 items-center px-6">
               <div className="order-2 md:order-1 relative">
